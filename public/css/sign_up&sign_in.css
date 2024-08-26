@@ -1,0 +1,139 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('https://colorlib.com/etc/lf/Login_v4/images/bg-01.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: "Lato", sans-serif;
+}
+form{
+    background-color: white;
+    padding: 50px;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 400px;
+}
+form h1{
+    text-transform: uppercase;
+    text-align: center;
+}
+form .item{
+    display: flex;
+    flex-direction: column;
+}
+form .item label{
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+form .item div{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #969696;
+    padding: 10px 0;
+}
+form .item div i{
+    font-size: 17px;
+    color: #666666;
+    margin: 0 10px;
+}
+form .item div input{
+    border: 0;
+    outline: none;
+    width: 100%;
+    font-family: "Lato", sans-serif;
+    font-size: 17px;
+}
+form>a{
+    color: #666666;
+    display: block;
+    text-decoration: none;
+    transition: .1s;
+    margin-left: auto;
+    width: fit-content;
+}
+form>a:hover{
+    color: #1a73e8;
+}
+form>button{
+    margin-top: 10px;
+    padding: 10px 0;
+    border-radius: 20px;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: .1s;
+    font-weight: 500;
+    font-family: "Poppins", sans-serif;
+    border: 1px solid #666666;
+}
+form>button:hover{
+    background-color: #1a73e8;
+    border: 1px solid #1a73e8;
+    color: white;
+}
+form>p{
+    font-size: 17px;
+}
+form>p a{
+    color: #666666;
+    text-decoration: none;
+    transition: .1s;
+}
+form>p a:hover{
+    color: #1a73e8;
+}
+/* Message */
+.message_box{
+    position: fixed;
+    right: 20px;
+    bottom: 30px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 10px #cdcdcd;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 17px;
+    text-transform: capitalize;
+    font-family: "Poppins", sans-serif;
+    overflow: hidden;
+}
+.message_box::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background-color: #1a73e8;
+    animation: message_animation 5s 1s;
+}
+.message_box i{
+    font-size: 30px;
+    cursor: pointer;
+}
+.success{
+    color: #009700;
+}
+.error{
+    color: #890000;
+}
+@keyframes message_animation {
+    form{
+        width: 100%;
+    }
+    to{
+        width: 0;
+    }
+}
+/* End message */
