@@ -12,6 +12,11 @@
             </tr>
             @if (count($histories) > 0)
             @foreach ($histories as $history)
+            @foreach ($news as $item)
+            @if ($history->id_news == $item->id)
+                @php
+                    $id_news = $news->firstWhere('id', $history->id_news);
+                @endphp
             <tr>
                 <td class="td">{{$history->title}}</td>
                 <td><img src="{{asset('images/'.$history->image)}}" alt=""></td>
@@ -19,6 +24,8 @@
                 <td><a href="{{route('news',$history->id_news)}}">Đọc lại</a> <a onclick="return confirm('Bạn có muốn xóa lịch sử này không?')" href="{{route('history.delete',$history->id)}}"><i class="fa-regular fa-trash-can"></i></a></td>
                 <td><input class="checkbox_history" type="checkbox" name="id[]" value="{{$history->id}}"></td>
             </tr>
+            @endif
+            @endforeach
             @endforeach
             <tr>
                 <td></td>

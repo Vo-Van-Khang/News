@@ -10,32 +10,36 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function comment(validate $request){
+    public function comment(validate $request,$id){
         $request->validated();
         $comment = DB::table("comments")->insert([
             "id_user" => Auth::user()->id,
             "content" => $request->comment,
-            "id_news" => $request->id,
+            "id_news" => $id,
         ]);
-
-        return redirect()->route('news', $request->id)->with("success","Đăng bình luận thành công!");
+        return response()->json([
+            'success' => true
+        ]);
     }
-    public function reply_comment(validate $request){
+    public function reply_comment(validate $request,$id){
         $request->validated();
         $comment = DB::table("reply_comments")->insert([
             "id_user" => Auth::user()->id,
             "content" => $request->comment,
-            "id_news" => $request->id,
+            "id_news" => $id,
             "id_comment" => $request->id_comment,
             "name_reply" => $request->name_reply,
         ]);
-
-        return redirect()->route('news', $request->id)->with("success","Đăng bình luận thành công!");
+        return response()->json([
+            'success' => true
+        ]);
     }
     public function delete_comment($id, $delete){
         DB::table("reply_comments")->where("id_comment", $delete)->delete();
         DB::table("comments")->where("id", $delete)->delete();
-        return redirect()->route('news', $id)->with("success","xóa bình luận thành công!");
+        return response()->json([
+            'success'=>true
+        ]);
     }
     public function delete_reply_comment($id, $delete){
         DB::table("reply_comments")->where("id", $delete)->delete();

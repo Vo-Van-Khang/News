@@ -5,16 +5,16 @@
         <div class="content">
             <table>
                 <tr>
-                    <th>ID người tạo</th>
                     <th>ID tin tức</th>
+                    <th>ID người tạo</th>
                     <th>Nội dung</th>
                     <th>Ngày tạo</th>
                     <th>Hành động</th>
                 </tr>
                 @foreach ($comments as $comment)
                 <tr>
-                    <td class="td"><a href="{{route('user.list', ['focus' => $comment->id_user])}}">{{$comment->id_user}}</a></td>
                     <td class="td"><a href="{{route('news.list', ['focus' => $comment->id_news])}}">{{$comment->id_news}}</a></td>
+                    <td class="td"><a href="{{route('user.list', ['focus' => $comment->id_user])}}">{{$comment->id_user}}</a></td>
                     <td><textarea disabled>{{$comment->content}}</textarea></td>
                     <td class="td">{{$comment->created_at}}</td>
                     <td>
@@ -27,6 +27,7 @@
                     @foreach ($reply_comments as $reply_comment)
                         @if ($reply_comment->id_comment === $comment->id)
                             <tr id_comment="{{$reply_comment->id_comment}}" class="extra tr_reply_comment">
+                                <td></td>
                                 <td class="td"><a href="{{route('user.list', ['focus' => $reply_comment->id_user])}}">{{$reply_comment->id_user}}</a></td>
                                 <td><textarea disabled>{{$reply_comment->content}}</textarea></td>
                                 <td class="td">{{$reply_comment->created_at}}</td>

@@ -183,6 +183,9 @@ class UserController extends Controller
     }
 
     public function delete($id) {
+        DB::table('reply_comments')->where('id_user', $id)->delete();
+        DB::table('comments')->where('id_user', $id)->delete();
+        DB::table('histories')->where('id_user', $id)->delete();
         $user = DB::table('users')->where('id', $id)->delete();
         return redirect()->route('user.list')->with('success','Đã xóa thành công!');
     }

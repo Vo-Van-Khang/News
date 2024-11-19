@@ -1,9 +1,10 @@
 <?php
-use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FilterController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\CategoryController;
 
@@ -91,7 +92,8 @@ Route::get('/logout',[UserController::class,'logout'])->name('logout')->middlewa
 
 Route::post('/comment/{id}',[CommentController::class,'comment'])->name('comment');
 Route::post('/reply_comment/{id}',[CommentController::class,'reply_comment'])->name('reply_comment');
-Route::get('/comment/{id}/delete/{delete}',[CommentController::class,'delete_comment'])->name('comment.delete')->middleware('auth');
-Route::get('/reply_comment/{id}/delete/{delete}',[CommentController::class,'delete_reply_comment'])->name('comment.reply_delete')->middleware('auth');
-
+Route::delete('/comment/{id}/delete/{delete}',[CommentController::class,'delete_comment'])->name('comment.delete')->middleware('auth');
+Route::delete('/reply_comment/{id}/delete/{delete}',[CommentController::class,'delete_reply_comment'])->name('comment.reply_delete')->middleware('auth');
+// AJAX
+Route::post('/ajax-comments/{id}',[AjaxController::class,'comments']);
 

@@ -19,7 +19,7 @@
                     <input class="filter_comment_input" type="text" value="{{$filter_comment->content}}" hidden>
                 @endforeach
             </div>
-            <div class="comment_content">
+            <div class="comment_content" id="comment_content" id_news="{{$news->id}}">
                 @foreach ($comments as $comment)
                     @php
                         $user = $users->firstWhere('id', $comment->id_user);
@@ -34,7 +34,7 @@
                                 <span class="reply_comment_btn" id_comment="{{ $comment->id }}" name_reply="{{ $user->name }}">Trả lời</span>
                             </div>
                             @if (Auth::check() && $comment->id_user == Auth::user()->id)
-                                <a class="scroll_postion" onclick="return confirm('Bạn có muốn xóa bình luận này không?')" href="{{ route('comment.delete', [$news->id, $comment->id]) }}"><i class="fa-solid fa-minus"></i></a>
+                                <button class="delete_btn delete_comment_btn" news_id="{{$news->id}}" item_delete={{$comment->id}}><i class="fa-solid fa-minus"></i></button>
                             @endif
                         </div>
             
@@ -55,7 +55,7 @@
                                         <span class="reply_comment_btn" id_comment="{{ $comment->id }}" name_reply="{{ $reply_user->name }}">Trả lời</span>
                                     </div>
                                     @if (Auth::check() && $reply_comment->id_user == Auth::user()->id)
-                                        <a class="scroll_postion" onclick="return confirm('Bạn có muốn xóa bình luận này không?')" href="{{ route('comment.reply_delete', [$news->id, $reply_comment->id]) }}"><i class="fa-solid fa-minus"></i></a>
+                                        <button class="delete_btn" onclick="return confirm('Bạn có muốn xóa bình luận này không?')" href="{{ route('comment.reply_delete', [$news->id, $reply_comment->id]) }}"><i class="fa-solid fa-minus"></i></button>
                                     @endif
                                 </div>   
                             @endif
@@ -70,18 +70,18 @@
                 @enderror
                 <form action="{{route('comment',$news->id)}}" method="post" class="comment_form_js" id="comment_form">
                     @csrf
-                    <input type="text" name="comment" autocomplete="off" placeholder="Nhập bình luận của bạn">
-                    <button class="scroll_postion"><i class="fa-solid fa-caret-right"></i></button>
+                    <input type="text" id="comment_value" name="comment" autocomplete="off" placeholder="Nhập bình luận của bạn" news_id="{{$news->id}}">
+                    <button id="btn_send_comment"><i class="fa-solid fa-caret-right"></i></button>
                 </form>
                 <form action="{{route('reply_comment',$news->id)}}" method="post" class="comment_form_js" id="reply_comment_form">
                     @csrf
                     <div>
                         <div><p id="name_reply">name</p><i id="close_reply_comment_form" class="fa-regular fa-circle-xmark"></i></div>
-                        <input id="input_focus" type="text" name="comment" autocomplete="off" placeholder="Nhập bình luận của bạn">
+                        <input id="reply_comment_value" type="text" name="comment" autocomplete="off" placeholder="Nhập bình luận của bạn" news_id="{{$news->id}}">
                     </div>
                     <input type="text" name="id_comment" id="input_reply_comment" value="" hidden>
                     <input type="text" name="name_reply" id="input_name_reply" value="" hidden>
-                    <button class="scroll_postion"><i class="fa-solid fa-caret-right"></i></button>
+                    <button id="btn_send_reply_comment"><i class="fa-solid fa-caret-right"></i></button>
                 </form>
             </div>
             @else

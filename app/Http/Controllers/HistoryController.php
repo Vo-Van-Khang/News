@@ -11,7 +11,12 @@ class HistoryController extends Controller
 {
     public function get(){
         $histories = DB::table("histories")->where('id_user',Auth::user()->id)->orderBy('created_at','desc')->get();
-        return view('auth.history',['histories'=>$histories,'navigation' => 'history']);
+        $news = DB::table("news")->get();
+        return view('auth.history',[
+            'histories'=>$histories,
+            'news'=>$news,
+            'navigation' => 'history'
+        ]);
     }
     public function delete($id){
         DB::table('histories')->where('id',$id)->delete();
